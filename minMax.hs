@@ -1,22 +1,39 @@
--- Find minimum and maximum from given list
+-- Find min1imum and max1imum from given list
 
-l :: [Int]
 l = [1, 2, 3, 4, 5, 6, 7];
 
+-- From Data.Foldable
+-- λ> :t maximum
+-- maximum :: (Foldable t, Ord a) => t a -> a
+-- λ> :t minimum
+-- minimum :: (Foldable t, Ord a) => t a -> a
 
 -- Version 1
 
-min' [] = 0
-min' (x:xs) = min'' x xs
-min'' n [] = n
-min'' n (x:xs) = if x < n then min'' x xs else min'' n xs
+min1 [] = 0
+min1 (x:xs) = min1' x xs
+min1' n [] = n
+min1' n (x:xs) = if x < n then min1' x xs else min1' n xs
 
-max' [] = 0
-max' (x:xs) = max'' x xs
-max'' n [] = n
-max'' n (x:xs) = if x > n then max'' x xs else max'' n xs
+max1 [] = 0
+max1 (x:xs) = max1' x xs
+max1' n [] = n
+max1' n (x:xs) = if x > n then max1' x xs else max1' n xs
 
+-- Version 2 Using Builtin min max functions
+
+min2 [] = 0
+min2 [x] = x
+min2 [x, y] = min x y
+min2 (x:y:xs) = min2 $ (min x y) : xs
+
+max2 [] = 0
+max2 [x] = x
+max2 [x, y] = max x y
+max2 (x:y:xs) = max2 $ (max x y) : xs
+
+-- runHaskell ./minMax.hs
 main = do
   print ("For list : " ++ show l)
-  print ("Minimum = " ++ (show (min' l)))
-  print ("Maximum = " ++ (show (max' l)))
+  print ("Minimum = " ++ (show (min1 l))) -- Change to min<x> as required
+  print ("max1imum = " ++ (show (max1 l))) -- Change to max<x> as required
