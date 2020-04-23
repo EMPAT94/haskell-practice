@@ -1,4 +1,5 @@
 -- Find min1imum and max1imum from given list
+-- load into ghci as :l minMax.hs
 
 l = [1, 2, 3, 4, 5, 6, 7];
 
@@ -31,6 +32,18 @@ max2 [] = 0
 max2 [x] = x
 max2 [x, y] = max x y
 max2 (x:y:xs) = max2 $ (max x y) : xs
+
+-- Version 3 Using Maybe and explicit type signature
+--
+min3 :: (Ord a) => [a] -> Maybe a
+min3 [x] = Just x
+min3 (x:y:xs) = min3 $ (min x y) : xs
+min3 _ = Nothing
+
+max3 :: (Ord a) => [a] -> Maybe a
+max3 [x] = Just x
+max3 (x:y:xs) = max3 $ (max x y) : xs
+max3 _ = Nothing
 
 -- runHaskell ./minMax.hs
 main = do
