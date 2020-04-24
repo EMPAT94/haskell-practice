@@ -59,3 +59,14 @@ max4 l = case l of
            (x:y:xs) -> max4 $ max x y : xs
            _ -> Nothing
 
+-- Version 5 Using Fold syntax
+
+min5 :: (Ord a) => [a] -> Maybe a
+min5 (x:xs)  = Just (foldl f x xs)
+  where f acc y = if acc < y then acc else y
+min5 _ = Nothing
+
+max5 :: (Ord a) => [a] -> Maybe a
+max5 (x:xs)  = Just (foldl f x xs)
+  where f acc y = if acc > y then acc else y
+max5 _ = Nothing
