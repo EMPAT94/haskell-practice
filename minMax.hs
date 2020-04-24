@@ -34,7 +34,7 @@ max2 [x, y] = max x y
 max2 (x:y:xs) = max2 $ (max x y) : xs
 
 -- Version 3 Using Maybe and explicit type signature
---
+
 min3 :: (Ord a) => [a] -> Maybe a
 min3 [x] = Just x
 min3 (x:y:xs) = min3 $ (min x y) : xs
@@ -45,8 +45,17 @@ max3 [x] = Just x
 max3 (x:y:xs) = max3 $ (max x y) : xs
 max3 _ = Nothing
 
--- runHaskell ./minMax.hs
-main = do
-  print ("For list : " ++ show l)
-  print ("Minimum = " ++ (show (min1 l))) -- Change to min<x> as required
-  print ("max1imum = " ++ (show (max1 l))) -- Change to max<x> as required
+-- Version 4 Using Case syntax
+
+min4 :: (Ord a) => [a] -> Maybe a
+min4 l = case l of
+           [x] -> Just x
+           (x:y:xs) -> min4 $ min x y : xs
+           _ -> Nothing
+
+max4 :: (Ord a) => [a] -> Maybe a
+max4 l = case l of
+           [x] -> Just x
+           (x:y:xs) -> max4 $ max x y : xs
+           _ -> Nothing
+
