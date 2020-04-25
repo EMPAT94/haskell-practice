@@ -1,8 +1,6 @@
 -- Find min1imum and max1imum from given list
 -- load into ghci as :l minMax.hs
 
-l = [1, 2, 3, 4, 5, 6, 7];
-
 -- From Data.Foldable
 -- λ> :t maximum
 -- maximum :: (Foldable t, Ord a) => t a -> a
@@ -70,3 +68,27 @@ max5 :: (Ord a) => [a] -> Maybe a
 max5 (x:xs)  = Just (foldl f x xs)
   where f acc y = if acc > y then acc else y
 max5 _ = Nothing
+
+-- Version 6 Interactive minMax
+-- runHaskell ./minMax.hs OR >main in ghci
+
+main :: IO [Char]
+main = do
+  list <- getListInput
+  print ("Minimum " ++ (show $ min5 list))
+  print ("Maximum " ++ (show $ max5 list))
+  runAgain
+
+getListInput :: IO [Int]
+getListInput = do
+  print ("Enter a comma separated list eg 1,2,4 :");
+  raw <- getLine
+  return (read ("["++raw++"]") :: [Int])
+
+runAgain :: IO [Char]
+runAgain = do
+  print ("Would you like to try again? y/n : ")
+  ans <- getLine
+  if (ans == "y" || ans == "Y")
+     then main
+     else return "Bye"
